@@ -1,7 +1,7 @@
 ## ----setup, include = FALSE----------------------------------------------
 knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
+  collapse = TRUE
+  , comment = "#>"
 )
 
 ## ------------------------------------------------------------------------
@@ -90,12 +90,14 @@ dio[1:5, 2:6, product = "inner"]
 
 # function to pick indexes of 5 nearest neighbors
 # an efficient alternative (with Rcpp) might be better
-udf <- function(x){
-  dim(x) <- NULL
-  order(x)[1:6]
-}
+udf <- function(x) order(x)[2:6]
 
-hi <- dapply(dio, 1, udf)[-1, ]
+hi <- dapply(dio, 1, udf)
 dim(hi)
 hi[1:5, 1:5]
+
+## ------------------------------------------------------------------------
+dist_extract(do, 1:5, 2:7)
+do <- dist_replace(do, 1:3, 4:6, 101:103)
+dist_extract(do, 1:3, 4:6, product = "inner")
 
